@@ -18,21 +18,21 @@
  */
 package org.failearly.dataset.datastore.neo4j;
 
-import org.failearly.dataset.datastore.DataStore;
-import org.failearly.dataset.datastore.DataStoreBase;
+import org.failearly.dataset.datastore.AbstractDataStore;
+import org.failearly.dataset.datastore.DataStoreException;
 import org.failearly.dataset.internal.tmc.TestMethod;
 import org.failearly.dataset.simplefile.DataSetParseException;
 
 /**
  * Neo4jDataStore is responsible for ...
  */
-final class Neo4jDataStore extends DataStoreBase {
+final class Neo4jDataStore extends AbstractDataStore {
     Neo4jDataStore(String dataStoreId, String dataStoreConfig) {
-        super(dataStoreId, dataStoreConfig);
+       // super(dataStoreId, dataStoreConfig);
     }
 
     @Override
-    public DataStore initialize() {
+    public void initialize() throws DataStoreException {
         // TODO: Implement Neo4jDataStore#initialize
         throw new UnsupportedOperationException("initialize not yet implemented");
 
