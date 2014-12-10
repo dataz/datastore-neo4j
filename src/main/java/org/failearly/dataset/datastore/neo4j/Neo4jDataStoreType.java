@@ -28,7 +28,7 @@ import org.failearly.dataset.datastore.DataStoreType;
 @SuppressWarnings("UnusedDeclaration")
 public final class Neo4jDataStoreType implements DataStoreType {
     @Override
-    public DataStore createDataStore(DataStoreDefinition annotation) {
+    public DataStore createDataStore(DataStoreDefinition annotation, Object context) {
         return new Neo4jDataStore(annotation.id(), annotation.config());
     }
 }
