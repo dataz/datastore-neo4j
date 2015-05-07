@@ -20,7 +20,7 @@ package org.failearly.dataset.datastore.neo4j;
 
 import org.failearly.dataset.datastore.AbstractDataStore;
 import org.failearly.dataset.datastore.DataStoreException;
-import org.failearly.dataset.internal.tmc.TestMethod;
+import org.failearly.dataset.internal.model.TestMethod;
 import org.failearly.dataset.simplefile.DataSetParseException;
 
 /**
