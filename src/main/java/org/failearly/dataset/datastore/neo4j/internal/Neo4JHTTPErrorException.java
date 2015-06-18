@@ -17,20 +17,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.neo4j;
+package org.failearly.dataset.datastore.neo4j.internal;
 
-import org.failearly.dataset.DataStoreDefinition;
-import org.failearly.dataset.datastore.DataStore;
-import org.failearly.dataset.datastore.DataStoreType;
-import org.failearly.dataset.datastore.neo4j.internal.Neo4JDataStores;
+import org.failearly.dataset.datastore.DataStoreException;
+
+import javax.ws.rs.core.Response;
 
 /**
- * Neo4jDataStoreType creates instances of {@link org.failearly.dataset.datastore.neo4j.Neo4jDataStore}. To be used with {@link DataStoreDefinition#type()}.
+ * Neo4JDataSoreException thrown in case of any HTTP error.
  */
-@SuppressWarnings("UnusedDeclaration")
-public final class Neo4jDataStoreType implements DataStoreType {
-    @Override
-    public DataStore createDataStore(DataStoreDefinition annotation, Object context) {
-        return Neo4JDataStores.createDataStore(annotation);
+public class Neo4JHTTPErrorException extends DataStoreException {
+    public Neo4JHTTPErrorException(Response response) {
+        super("HTTP error: '" + response.toString() +"'");
     }
 }

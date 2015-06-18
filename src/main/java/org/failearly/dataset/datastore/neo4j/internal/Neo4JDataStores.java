@@ -17,20 +17,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.neo4j;
+package org.failearly.dataset.datastore.neo4j.internal;
 
 import org.failearly.dataset.DataStoreDefinition;
 import org.failearly.dataset.datastore.DataStore;
-import org.failearly.dataset.datastore.DataStoreType;
-import org.failearly.dataset.datastore.neo4j.internal.Neo4JDataStores;
+import org.failearly.dataset.datastore.neo4j.Neo4jDataStore;
 
 /**
- * Neo4jDataStoreType creates instances of {@link org.failearly.dataset.datastore.neo4j.Neo4jDataStore}. To be used with {@link DataStoreDefinition#type()}.
+ * Neo4JDataStores is responsible for ...
  */
-@SuppressWarnings("UnusedDeclaration")
-public final class Neo4jDataStoreType implements DataStoreType {
-    @Override
-    public DataStore createDataStore(DataStoreDefinition annotation, Object context) {
-        return Neo4JDataStores.createDataStore(annotation);
+public final class Neo4JDataStores {
+    private Neo4JDataStores() {
     }
+
+    public static DataStore createDataStore(Neo4jDataStore dataStoreAnnotation) {
+        final Neo4jDataStoreImpl dataStore = new Neo4jDataStoreImpl(dataStoreAnnotation.id(), dataStoreAnnotation.config());
+        dataStore.setSetupSuffix(dataStoreAnnotation.setupSuffix());
+        dataStore.setCleanupSuffix(dataStoreAnnotation.cleanupSuffix());
+        return dataStore;
+    }
+
+    public static DataStore createDataStore(DataStoreDefinition annotation) {
+        return new Neo4jDataStoreImpl(annotation.id(), annotation.config());
+    }
+
 }

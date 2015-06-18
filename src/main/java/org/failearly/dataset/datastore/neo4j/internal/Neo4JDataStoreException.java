@@ -17,20 +17,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.neo4j;
+package org.failearly.dataset.datastore.neo4j.internal;
 
-import org.failearly.dataset.DataStoreDefinition;
-import org.failearly.dataset.datastore.DataStore;
-import org.failearly.dataset.datastore.DataStoreType;
-import org.failearly.dataset.datastore.neo4j.internal.Neo4JDataStores;
+import org.failearly.dataset.datastore.DataStoreException;
+import org.failearly.dataset.datastore.neo4j.internal.json.Neo4JError;
+
+import java.util.List;
 
 /**
- * Neo4jDataStoreType creates instances of {@link org.failearly.dataset.datastore.neo4j.Neo4jDataStore}. To be used with {@link DataStoreDefinition#type()}.
+ * Neo4JDataStoreException is responsible for ...
  */
-@SuppressWarnings("UnusedDeclaration")
-public final class Neo4jDataStoreType implements DataStoreType {
-    @Override
-    public DataStore createDataStore(DataStoreDefinition annotation, Object context) {
-        return Neo4JDataStores.createDataStore(annotation);
+public class Neo4JDataStoreException extends DataStoreException {
+    public Neo4JDataStoreException(List<Neo4JError> errors) {
+        super("Neo4J Datastore complains about "+ errors.size() + " error(s):"+createErrorMessage(errors));
+    }
+
+    private static String createErrorMessage(List<Neo4JError> errors) {
+        final StringBuilder builder=new StringBuilder();
+        for (Neo4JError error : errors) {
+            builder.append("\n\t").append(error).append("\n");
+        }
+        return builder.toString();
     }
 }

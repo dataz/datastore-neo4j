@@ -1,7 +1,7 @@
 /*
- * dataSet - Test Support For Datastores.
+ * dataSet - Test Support For Data Stores.
  *
- * Copyright (C) 2014-2014 Marko Umek (http://fail-early.com/contact)
+ * Copyright (C) 2014-2015 Marko Umek (http://fail-early.com/contact)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,45 +16,68 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+
 package org.failearly.dataset.datastore.neo4j;
 
-import org.failearly.dataset.datastore.AbstractDataStore;
-import org.failearly.dataset.datastore.DataStoreException;
-import org.failearly.dataset.internal.model.TestMethod;
-import org.failearly.dataset.simplefile.DataSetParseException;
+import org.failearly.dataset.config.Constants;
+import org.failearly.dataset.datastore.DataStoreFactoryDefinition;
+import org.failearly.dataset.datastore.neo4j.internal.Neo4jDataStoreFactory;
+
+import java.lang.annotation.*;
 
 /**
  * Neo4jDataStore is responsible for ...
  */
-final class Neo4jDataStore extends AbstractDataStore {
-    Neo4jDataStore(String dataStoreId, String dataStoreConfig) {
-       // super(dataStoreId, dataStoreConfig);
-    }
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Repeatable(Neo4jDataStore.Neo4jDataStores.class)
+@DataStoreFactoryDefinition(dataStoreFactory = Neo4jDataStoreFactory.class)
+public @interface Neo4jDataStore {
+    /**
+     * If your tests uses multiple data stores, you must identify each data store.
+     *
+     * @return the (unique) data store id.
+     */
+    String id() default Constants.DATASET_DEFAULT_DATASTORE_ID;
 
-    @Override
-    public void initialize() throws DataStoreException {
-        // TODO: Implement Neo4jDataStore#initialize
-        throw new UnsupportedOperationException("initialize not yet implemented");
+    /**
+     * The datastore configuration file will be used by the actually DataStore Implementation. So what's inside these configuration property file depends
+     * on the DataStore type.
+     *
+     * @return the datastore configuration file(name).
+     */
+    String config() default "/neo4j-datastore.properties";
 
-    }
+    /**
+     * Default suffix for setup resource files.
+     *
+     * @return suffix to be used for {@link org.failearly.dataset.DataSet#setup()} (if no setup resource is specified).
+     *
+     * @see org.failearly.dataset.DataStoreDefinition#setupSuffix()
+     */
+    String setupSuffix() default "setup.neo4j";
 
-    @Override
-    public void setup(TestMethod testMethod) throws DataSetParseException {
-        // TODO: Implement Neo4jDataStore#setup
-        throw new UnsupportedOperationException("setup not yet implemented");
+    /**
+     * Default suffix for cleanup resource files.
+     *
+     * @return suffix to be used for {@link org.failearly.dataset.DataSet#cleanup()} (if no cleanup resource is specified).
+     *
+     * @see org.failearly.dataset.DataStoreDefinition#cleanupSuffix()
+     */
+    String cleanupSuffix() default "cleanup.neo4j";
 
-    }
-
-    @Override
-    public void cleanup(TestMethod testMethod) throws DataSetParseException {
-        // TODO: Implement Neo4jDataStore#cleanup
-        throw new UnsupportedOperationException("cleanup not yet implemented");
-
-    }
-
-    @Override
-    public void dispose() {
-        // TODO: Implement Neo4jDataStore#dispose
-        throw new UnsupportedOperationException("dispose not yet implemented");
+    /**
+     * Containing Annotation Type.
+     *
+     * Remark: This will be used by Java8 compiler.
+     *
+     * @see java.lang.annotation.Repeatable
+     */
+    @Target({ElementType.TYPE})
+    @Retention(RetentionPolicy.RUNTIME)
+    @Documented
+    @interface Neo4jDataStores {
+        Neo4jDataStore[] value();
     }
 }

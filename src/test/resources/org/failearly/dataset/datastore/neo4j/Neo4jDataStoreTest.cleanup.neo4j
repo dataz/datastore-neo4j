@@ -1,0 +1,2 @@
+match (t)-[r]-() delete r,t;
+match (t) delete t;

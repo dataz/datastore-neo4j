@@ -1,0 +1,78 @@
+/*
+ * dataSet - Test Support For Data Stores.
+ *
+ * Copyright (C) 2014-2015 Marko Umek (http://fail-early.com/contact)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
+
+package org.failearly.dataset.datastore.neo4j.internal.json;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.failearly.dataset.simplefile.SimpleFileStatement;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Neo4JStatements collects the Neo4J statements. Used by Jackson serializer.
+ *
+ * @see com.fasterxml.jackson.databind.ObjectMapper#writeValueAsString(Object)
+ */
+public final class Neo4JStatements {
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
+    private final List<SimpleFileStatement> statements=new LinkedList<>();
+
+    public Neo4JStatements() {
+    }
+
+
+    public void addStatement(SimpleFileStatement statement) {
+        statements.add(statement);
+    }
+
+    public String toJson() throws JsonProcessingException {
+        return objectMapper.writeValueAsString(this);
+    }
+
+    /**
+     * Used by Jackson.
+     * @return a list of statement objects
+     */
+    @SuppressWarnings("unused")
+    public List<Statement> getStatements() {
+        return statements.stream().map(s -> new Statement(s.getContent())).collect(Collectors.toList());
+    }
+
+    public static final class Statement {
+        private final String statement;
+
+        private Statement(String statement) {
+            this.statement = statement;
+        }
+
+        /**
+         * Used by Jackson.
+         * @return a list of statement objects
+         */
+        @SuppressWarnings("unused")
+        public String getStatement() {
+            return statement;
+        }
+    }
+
+}
