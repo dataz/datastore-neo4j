@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
  */
 public final class Neo4JStatements {
     private static final ObjectMapper objectMapper = new ObjectMapper();
+    public static final Neo4JStatements NO_STATEMENTS = new Neo4JStatements();
 
     private final List<SimpleFileStatement> statements=new LinkedList<>();
 

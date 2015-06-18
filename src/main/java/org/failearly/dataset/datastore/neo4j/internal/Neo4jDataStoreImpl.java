@@ -28,6 +28,7 @@ import org.failearly.dataset.datastore.support.SimpleFileTransactionalSupportDat
 import org.failearly.dataset.resource.DataResource;
 import org.failearly.dataset.simplefile.SimpleFileStatement;
 import org.failearly.dataset.util.ExtendedProperties;
+import org.failearly.dataset.util.With;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,7 +60,10 @@ public final class Neo4jDataStoreImpl extends SimpleFileTransactionalSupportData
     protected void doInitialize(ExtendedProperties properties) throws DataStoreException {
         this.url = properties.getMandatoryProperty(DATASTORE_NEO4J_URL);
         this.webTarget = ClientBuilder.newClient().target(this.url);
-
+        with.action("Check running Neo4J server on " + this.url, () -> {
+            final Response response = executePostRequest(Neo4JStatements.NO_STATEMENTS);
+            checkHttpStatus(response);
+        });
     }
 
     @Override
