@@ -19,43 +19,40 @@
 
 package org.failearly.dataset.datastore.neo4j.internal.json;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.failearly.dataset.datastore.neo4j.internal.Neo4JDataStoreException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 /**
- * Neo4JResults is responsible for ...
+ * Neo4JResponse is the root object for some responses of Neo4J. Currently we are interested only in <i>results</i> and <i>errors</i>.
  */
-public final class Neo4JResults {
+@SuppressWarnings("unused")
+public final class Neo4JResponse {
 
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper objectMapper = new ObjectMapper()
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-    private List<Neo4JError> errors=new LinkedList<>();
+    private List<Neo4JError> errors = Collections.emptyList();
+    private List<Neo4JResult> results = Collections.emptyList();
 
-    public static Neo4JResults fromJson(String json) throws IOException {
-        return objectMapper.readValue(json, Neo4JResults.class);
+    public static Neo4JResponse fromJson(String json) throws IOException {
+        return objectMapper.readValue(json, Neo4JResponse.class);
     }
 
-    @JsonIgnore
     public void setResults(List<Neo4JResult> results) {
-        throw new UnsupportedOperationException("setResults() is not yet implemented");
-
+        this.results = results;
     }
 
     public void setErrors(List<Neo4JError> errors) {
-        this.errors.clear();
-        this.errors.addAll(errors);
+        this.errors = errors;
     }
 
     public void throwOnErrors() {
-        if( ! isOk() ) {
+        if (!isOk()) {
             throw new Neo4JDataStoreException(this.errors);
         }
     }

@@ -19,35 +19,30 @@
 
 package org.failearly.dataset.datastore.neo4j.internal.json;
 
+import java.util.List;
+
 /**
- * Neo4JError is responsible for ...
+ * Neo4JData collects the row and graph property.
  */
 @SuppressWarnings("unused")
-public final class Neo4JError {
-    private String code;
-    private String message;
+public final class Neo4JData {
+    private List<?> row;
 
-    public String getCode() {
-        return code;
+    private Neo4JGraph graph;
+
+    public List<?> getRow() {
+        return row;
     }
 
-    public String getMessage() {
-        return message;
+    public void setRow(List<?> row) {
+        this.row = row;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public Neo4JGraph getGraph() {
+        return graph;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    @Override
-    public String toString() {
-        return "Neo4JError{" +
-                "code='" + code + '\'' +
-                ", message='" + message + '\'' +
-                '}';
+    public void setGraph(Neo4JGraph graph) {
+        this.graph = graph;
     }
 }

@@ -19,35 +19,29 @@
 
 package org.failearly.dataset.datastore.neo4j.internal.json;
 
+import java.util.List;
+
 /**
- * Neo4JError is responsible for ...
+ * Neo4JGraph is responsible for ...
  */
 @SuppressWarnings("unused")
-public final class Neo4JError {
-    private String code;
-    private String message;
+public final class Neo4JGraph {
+    private List<Neo4JNode> nodes;
+    private List<Neo4JRelationship> relationships;
 
-    public String getCode() {
-        return code;
+    public List<Neo4JNode> getNodes() {
+        return nodes;
     }
 
-    public String getMessage() {
-        return message;
+    public void setNodes(List<Neo4JNode> nodes) {
+        this.nodes = nodes;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public List<Neo4JRelationship> getRelationships() {
+        return relationships;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    @Override
-    public String toString() {
-        return "Neo4JError{" +
-                "code='" + code + '\'' +
-                ", message='" + message + '\'' +
-                '}';
+    public void setRelationships(List<Neo4JRelationship> relationships) {
+        this.relationships = relationships;
     }
 }

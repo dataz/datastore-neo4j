@@ -19,35 +19,29 @@
 
 package org.failearly.dataset.datastore.neo4j.internal.json;
 
+import java.util.Map;
+
 /**
- * Neo4JError is responsible for ...
+ * Neo4JEntity is the base class for nodes and relations.
  */
 @SuppressWarnings("unused")
-public final class Neo4JError {
-    private String code;
-    private String message;
+public abstract class Neo4JEntity {
+    private final String id;
+    private Map<String,?> properties;
 
-    public String getCode() {
-        return code;
+    protected Neo4JEntity(String id) {
+        this.id = id;
     }
 
-    public String getMessage() {
-        return message;
+    public final String getId() {
+        return id;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public final Map<String, ?> getProperties() {
+        return properties;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    @Override
-    public String toString() {
-        return "Neo4JError{" +
-                "code='" + code + '\'' +
-                ", message='" + message + '\'' +
-                '}';
+    public final void setProperties(Map<String, ?> properties) {
+        this.properties = properties;
     }
 }

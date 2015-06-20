@@ -19,35 +19,29 @@
 
 package org.failearly.dataset.datastore.neo4j.internal.json;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
+
 /**
- * Neo4JError is responsible for ...
+ * Neo4JNode is responsible for ...
  */
 @SuppressWarnings("unused")
-public final class Neo4JError {
-    private String code;
-    private String message;
+public final class Neo4JNode extends Neo4JEntity {
+    private List<String> labels;
 
-    public String getCode() {
-        return code;
+    @JsonCreator
+    public Neo4JNode(@JsonProperty("id")String id) {
+        super(id);
     }
 
-    public String getMessage() {
-        return message;
+    public List<String> getLabels() {
+        return labels;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setLabels(List<String> labels) {
+        this.labels = labels;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    @Override
-    public String toString() {
-        return "Neo4JError{" +
-                "code='" + code + '\'' +
-                ", message='" + message + '\'' +
-                '}';
-    }
 }

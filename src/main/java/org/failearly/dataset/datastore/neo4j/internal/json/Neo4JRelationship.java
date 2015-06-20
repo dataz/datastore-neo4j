@@ -19,35 +19,42 @@
 
 package org.failearly.dataset.datastore.neo4j.internal.json;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
- * Neo4JError is responsible for ...
+ * Neo4JRelationship is responsible for ...
  */
-@SuppressWarnings("unused")
-public final class Neo4JError {
-    private String code;
-    private String message;
+public final class Neo4JRelationship extends Neo4JEntity {
 
-    public String getCode() {
-        return code;
+    private String type;
+    private String startNode;
+    private String endNode;
+
+    public Neo4JRelationship(@JsonProperty("id")String id) {
+        super(id);
     }
 
-    public String getMessage() {
-        return message;
+    public String getEndNode() {
+        return endNode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setEndNode(String endNode) {
+        this.endNode = endNode;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public String getStartNode() {
+        return startNode;
     }
 
-    @Override
-    public String toString() {
-        return "Neo4JError{" +
-                "code='" + code + '\'' +
-                ", message='" + message + '\'' +
-                '}';
+    public void setStartNode(String startNode) {
+        this.startNode = startNode;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

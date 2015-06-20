@@ -20,15 +20,13 @@
 package org.failearly.dataset.datastore.neo4j.internal;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.failearly.dataset.datastore.DataStoreException;
-import org.failearly.dataset.datastore.neo4j.internal.json.Neo4JResults;
+import org.failearly.dataset.datastore.neo4j.internal.json.Neo4JResponse;
 import org.failearly.dataset.datastore.neo4j.internal.json.Neo4JStatements;
 import org.failearly.dataset.datastore.support.SimpleFileTransactionalSupportDataStoreBase;
 import org.failearly.dataset.resource.DataResource;
 import org.failearly.dataset.simplefile.SimpleFileStatement;
 import org.failearly.dataset.util.ExtendedProperties;
-import org.failearly.dataset.util.With;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -100,7 +98,7 @@ public final class Neo4jDataStoreImpl extends SimpleFileTransactionalSupportData
     private void checkNeo4jErrors(Response response) throws IOException {
         final String resultsString = response.readEntity(String.class);
         LOGGER.debug("Neo4J Results:\n{}", resultsString);
-        final Neo4JResults results = Neo4JResults.fromJson(resultsString);
+        final Neo4JResponse results = Neo4JResponse.fromJson(resultsString);
         results.throwOnErrors();
     }
 }

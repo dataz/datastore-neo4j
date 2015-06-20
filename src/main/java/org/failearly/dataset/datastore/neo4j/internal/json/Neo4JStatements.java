@@ -41,13 +41,8 @@ public final class Neo4JStatements {
     public Neo4JStatements() {
     }
 
-
     public void addStatement(SimpleFileStatement statement) {
         statements.add(statement);
-    }
-
-    public String toJson() throws JsonProcessingException {
-        return objectMapper.writeValueAsString(this);
     }
 
     /**
@@ -57,6 +52,10 @@ public final class Neo4JStatements {
     @SuppressWarnings("unused")
     public List<Statement> getStatements() {
         return statements.stream().map(s -> new Statement(s.getContent())).collect(Collectors.toList());
+    }
+
+    public String toJson() throws JsonProcessingException {
+        return objectMapper.writeValueAsString(this);
     }
 
     public static final class Statement {
