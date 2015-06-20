@@ -19,9 +19,8 @@
 
 package org.failearly.dataset.datastore.neo4j;
 
-import org.failearly.dataset.DataCleanup;
-import org.failearly.dataset.DataSet;
-import org.failearly.dataset.SuppressDataSet;
+import org.failearly.dataset.*;
+import org.failearly.dataset.datastore.neo4j.model.tenant.Tenants;
 import org.failearly.dataset.junit4.AbstractDataSetTest;
 import org.failearly.dataset.template.simple.Constant;
 import org.junit.Test;
@@ -39,6 +38,12 @@ public class Neo4jDataStoreTest extends AbstractDataSetTest {
     public void use_static_resource() throws Exception {
         // assert / then
         // TODO: Test number of nodes and relations
+    }
+
+    @Test
+    @Use(Tenants.class)
+    @SuppressCleanup
+    public void using_use_annotation() throws Exception {
     }
 
     @Test
