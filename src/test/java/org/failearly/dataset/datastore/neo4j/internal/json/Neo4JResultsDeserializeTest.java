@@ -19,29 +19,26 @@
 
 package org.failearly.dataset.datastore.neo4j.internal.json;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.failearly.dataset.datastore.neo4j.internal.Neo4JDataStoreException;
-import org.junit.Ignore;
+import org.failearly.dataset.test.AssertException;
 import org.junit.Test;
 
-import static org.failearly.dataset.test.TestUtils.assertException;
-import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.*;
+import static org.failearly.dataset.test.AssertException.assertException;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Neo4JResultsTest contains tests for ... .
  */
 public class Neo4JResultsDeserializeTest {
 
-    private static final ObjectMapper mapper=new ObjectMapper();
-
     @Test
     public void neo4j_without_error__should_result_in_valid_Neo4JResults_object__and__no_exception() throws Exception {
         // arrange / given
-        final String json="{\"results\":[{\"columns\":[],\"data\":[]},{\"columns\":[],\"data\":[]}],\"errors\":[]}";
+        final String json = "{\"results\":[{\"columns\":[],\"data\":[]},{\"columns\":[],\"data\":[]}],\"errors\":[]}";
 
         // act / when
-        final Neo4JResults results=Neo4JResults.fromJson(json);
+        final Neo4JResults results = Neo4JResults.fromJson(json);
 
         // assert / then
         assertTrue("No error?", results.isOk());
@@ -52,18 +49,18 @@ public class Neo4JResultsDeserializeTest {
     @Test
     public void neo4j_with_error__should_throw_exception() throws Exception {
         // arrange / given
-        final String json="{\"results\":[{\"columns\":[],\"data\":[]},{\"columns\":[],\"data\":[]}]," +
+        final String json = "{\"results\":[{\"columns\":[],\"data\":[]},{\"columns\":[],\"data\":[]}]," +
                 "\"errors\":[" +
-                    "{\"code\":\"Neo.ClientError (...)\"" +
-                    ",\"message\":\"Invalid input 'X': expected <init> (line 1, column 1 (offset: 0))^\"}" +
+                "{\"code\":\"Neo.ClientError (...)\"" +
+                ",\"message\":\"Invalid input 'X': expected <init> (line 1, column 1 (offset: 0))^\"}" +
                 "]}";
 
         // act / when
-        final Neo4JResults results=Neo4JResults.fromJson(json);
+        final Neo4JResults results = Neo4JResults.fromJson(json);
 
         // assert / then
         assertFalse("Error?", results.isOk());
-        assertException(
+        AssertException.assertException(
                 Neo4JDataStoreException.class,
                 "Neo4J Datastore complains about 1 error(s):\n\tNeo4JError{code='Neo.ClientError (...)', message='Invalid input 'X': expected <init> (line 1, column 1 (offset: 0))^'}\n",
                 results::throwOnErrors
