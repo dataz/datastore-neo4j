@@ -27,7 +27,7 @@ import org.failearly.dataset.template.simple.Constant;
 /**
  * MasterTenant is responsible for ...
  */
-@DataSetup("MasterTenant.setup.neo4j.vm")
+@DataSetup("Tenants.setup.neo4j.vm")
 @ListGenerator(name="tenants", values = {"4711","314","28"})
 public interface Tenants extends Use.ReusableDataSet {
 }

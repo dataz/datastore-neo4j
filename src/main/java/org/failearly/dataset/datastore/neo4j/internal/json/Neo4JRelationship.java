@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Neo4JRelationship is responsible for ...
  */
+@SuppressWarnings("unused")
 public final class Neo4JRelationship extends Neo4JEntity {
 
     private String type;

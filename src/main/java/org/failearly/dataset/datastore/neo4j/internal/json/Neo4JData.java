@@ -33,7 +33,6 @@ public final class Neo4JData {
     public List<?> getRow() {
         return row;
     }
-
     public void setRow(List<?> row) {
         this.row = row;
     }
