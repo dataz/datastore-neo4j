@@ -19,6 +19,7 @@
 
 package org.failearly.dataset.datastore.neo4j;
 
+import org.failearly.dataset.AdhocDataStore;
 import org.failearly.dataset.config.Constants;
 import org.failearly.dataset.datastore.DataStoreFactoryDefinition;
 import org.failearly.dataset.datastore.neo4j.internal.Neo4jDataStoreFactory;
@@ -32,7 +33,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Repeatable(Neo4jDataStore.Neo4jDataStores.class)
-@DataStoreFactoryDefinition(dataStoreFactory = Neo4jDataStoreFactory.class)
+@DataStoreFactoryDefinition(factory = Neo4jDataStoreFactory.class)
 public @interface Neo4jDataStore {
     /**
      * If your tests uses multiple data stores, you must identify each data store.
@@ -54,7 +55,7 @@ public @interface Neo4jDataStore {
      *
      * @return suffix to be used for {@link org.failearly.dataset.DataSet#setup()} (if no setup resource is specified).
      *
-     * @see org.failearly.dataset.DataStoreDefinition#setupSuffix()
+     * @see AdhocDataStore#setupSuffix()
      */
     String setupSuffix() default "setup.neo4j";
 
@@ -63,7 +64,7 @@ public @interface Neo4jDataStore {
      *
      * @return suffix to be used for {@link org.failearly.dataset.DataSet#cleanup()} (if no cleanup resource is specified).
      *
-     * @see org.failearly.dataset.DataStoreDefinition#cleanupSuffix()
+     * @see AdhocDataStore#cleanupSuffix()
      */
     String cleanupSuffix() default "cleanup.neo4j";
 

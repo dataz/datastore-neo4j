@@ -19,18 +19,18 @@
 
 package org.failearly.dataset.datastore.neo4j;
 
-import org.failearly.dataset.DataStoreDefinition;
+import org.failearly.dataset.AdhocDataStore;
 import org.failearly.dataset.datastore.DataStore;
 import org.failearly.dataset.datastore.DataStoreType;
 import org.failearly.dataset.datastore.neo4j.internal.Neo4JDataStores;
 
 /**
- * Neo4jDataStoreType creates instances of {@link org.failearly.dataset.datastore.neo4j.Neo4jDataStore}. To be used with {@link DataStoreDefinition#type()}.
+ * Neo4jDataStoreType creates instances of {@link org.failearly.dataset.datastore.neo4j.Neo4jDataStore}. To be used with {@link AdhocDataStore#type()}.
  */
 @SuppressWarnings("UnusedDeclaration")
 public final class Neo4jDataStoreType implements DataStoreType {
     @Override
-    public DataStore createDataStore(DataStoreDefinition annotation, Object context) {
+    public DataStore createDataStore(AdhocDataStore annotation, Object context) {
         return Neo4JDataStores.createDataStore(annotation);
     }
 }

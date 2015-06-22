@@ -19,7 +19,7 @@
 
 package org.failearly.dataset.datastore.neo4j.internal;
 
-import org.failearly.dataset.DataStoreDefinition;
+import org.failearly.dataset.AdhocDataStore;
 import org.failearly.dataset.datastore.DataStore;
 import org.failearly.dataset.datastore.neo4j.Neo4jDataStore;
 
@@ -37,7 +37,7 @@ public final class Neo4JDataStores {
         return dataStore;
     }
 
-    public static DataStore createDataStore(DataStoreDefinition annotation) {
+    public static DataStore createDataStore(AdhocDataStore annotation) {
         return new Neo4jDataStoreImpl(annotation.id(), annotation.config());
     }
 
