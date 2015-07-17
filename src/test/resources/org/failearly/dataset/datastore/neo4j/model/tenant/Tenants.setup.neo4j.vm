@@ -1,3 +1,0 @@
-#foreach( $t in $tenants )
-    CREATE (tenant:Tenant {name:'demo_${t}',id:${t},backend:'http://localhost:7474'});
-#end

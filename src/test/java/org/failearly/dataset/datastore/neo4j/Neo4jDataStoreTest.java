@@ -19,44 +19,28 @@
 
 package org.failearly.dataset.datastore.neo4j;
 
-import org.failearly.dataset.*;
-import org.failearly.dataset.datastore.neo4j.model.tenant.Tenants;
+import org.failearly.dataset.DataCleanup;
+import org.failearly.dataset.DataSet;
+import org.failearly.dataset.SuppressCleanup;
 import org.failearly.dataset.junit4.AbstractDataSetTest;
-import org.failearly.dataset.template.simple.Constant;
+import org.failearly.dataset.template.generator.ListGenerator;
+import org.failearly.dataset.template.generator.RandomRangeGenerator;
 import org.junit.Test;
 
 /**
  * Neo4jDataStoreTest contains tests for ... .
  */
-@Neo4jDataStore
-// @DataStoreSetup(setup = "/coshare.setup.neo4j.vm")
+@Neo4jDataStore(setupSuffix = "setup.neo4j.vm", cleanupSuffix = "cleanup.neo4j")
 @DataCleanup
 public class Neo4jDataStoreTest extends AbstractDataSetTest {
 
     @Test
-    @DataSet
-    public void use_static_resource() throws Exception {
-        // assert / then
-        // TODO: Test number of nodes and relations
-    }
-
-    @Test
-    @Use(Tenants.class)
+    @DataSet(setup = "Neo4jDataStoreTest-use_template.setup.neo4j.vm")
+    @ListGenerator(name = "datastores", values={"Oracle","H2","Neo4J","MongoDB"})
+    @RandomRangeGenerator(name = "datastoreIds", seed=1)
+    @RandomRangeGenerator(name = "datasetIds", seed=2)
+    @ListGenerator(name = "datasets", values={"ds1","ds2","ds3"})
     @SuppressCleanup
-    public void using_use_annotation() throws Exception {
-    }
-
-    @Test
-    @DataSet(setup = "Neo4jDataStoreTest-template.setup.neo4j.vm")
-    @Constant(name = "tenantId", value = "4711")
-    @Constant(name = "tenantConfigId", value = "471100")
-    @Constant(name = "adminId", value = "314000")
-    @Constant(name = "mailId", value = "1234")
-    @Constant(name = "tenantProxyId", value = "70815")
-    @Constant(name = "tPersonId", value = "3534533")
     public void use_template() throws Exception {
-        // assert / then
-        // TODO: Test number of nodes and relations
     }
-
 }

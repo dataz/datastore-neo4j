@@ -1,0 +1,24 @@
+#foreach( $datastore in $datastores )
+    CREATE (d:Datastore {id: '$datastoreIds.next', name: '${datastore}', typeId:'Datastore:$datastoreIds.lastValue'});
+#end
+
+#foreach( $dataset in $datasets )
+    CREATE (d:Dataset {id: '$datasetIds.next', name: '${dataset}', typeId:'Dataset:$datasetIds.lastValue'});
+#end
+
+$datastoreIds.reset()
+
+#foreach( $datastore in $datastores )
+#set( $datastoreId=$datastoreIds.next() )
+--
+-- Assign all datasets to '$datastore' (id=$datastoreId)
+--
+
+    $datasetIds.reset()
+    #foreach( $dataset in $datasets )
+        MATCH (d:Datastore),(ds:Dataset)
+        WHERE d.id = '$datastoreId' AND ds.id = '$datasetIds.next'
+        CREATE (d)-[r:USED_BY]->(ds)
+        RETURN r;
+    #end
+#end
