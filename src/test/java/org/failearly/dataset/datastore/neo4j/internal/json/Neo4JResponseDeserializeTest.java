@@ -20,7 +20,7 @@
 package org.failearly.dataset.datastore.neo4j.internal.json;
 
 import org.failearly.dataset.datastore.neo4j.internal.Neo4JDataStoreException;
-import org.failearly.dataset.test.AssertException;
+import org.failearly.dataset.util.ExceptionVerifier;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -156,11 +156,7 @@ public class Neo4JResponseDeserializeTest {
 
         // assert / then
         assertFalse("Error?", response.isOk());
-        AssertException.assertException(
-                Neo4JDataStoreException.class,
-                "Neo4J Datastore complains about 1 error(s):\n\tNeo4JError{code='Neo.ClientError (...)', message='Invalid input 'X': expected <init> (line 1, column 1 (offset: 0))^'}\n",
-                response::throwOnErrors
-        );
+        ExceptionVerifier.on(response::throwOnErrors).expect(Neo4JDataStoreException.class).expect("Neo4J Datastore complains about 1 error(s):\n\tNeo4JError{code='Neo.ClientError (...)', message='Invalid input 'X': expected <init> (line 1, column 1 (offset: 0))^'}\n").verify();
     }
 
     @Test
