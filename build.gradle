@@ -24,5 +24,6 @@ dependencies {
     compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.18'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.5.3'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.5.3'
-    testCompile project(':common-test')
+
+    testCompile project(':dataset-common-test')
 }
