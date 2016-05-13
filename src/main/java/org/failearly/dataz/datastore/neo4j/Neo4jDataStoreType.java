@@ -17,37 +17,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.neo4j.internal.json;
+package org.failearly.dataz.datastore.neo4j;
+
+import org.failearly.dataz.AdhocDataStore;
+import org.failearly.dataz.datastore.DataStore;
+import org.failearly.dataz.datastore.DataStoreType;
+import org.failearly.dataz.datastore.neo4j.internal.Neo4JDataStores;
 
 /**
- * Neo4JError is responsible for ...
+ * Neo4jDataStoreType creates instances of {@link org.failearly.dataz.datastore.neo4j.Neo4jDataStore}. To be used with {@link AdhocDataStore#type()}.
  */
-@SuppressWarnings("unused")
-public final class Neo4JError {
-    private String code;
-    private String message;
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
+@SuppressWarnings("UnusedDeclaration")
+public final class Neo4jDataStoreType implements DataStoreType {
     @Override
-    public String toString() {
-        return "Neo4JError{" +
-                "code='" + code + '\'' +
-                ", message='" + message + '\'' +
-                '}';
+    public DataStore createDataStore(AdhocDataStore annotation, Object context) {
+        return Neo4JDataStores.createDataStore(annotation);
     }
 }

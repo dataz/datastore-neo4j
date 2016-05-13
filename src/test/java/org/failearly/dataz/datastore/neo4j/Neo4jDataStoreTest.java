@@ -17,14 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.neo4j;
+package org.failearly.dataz.datastore.neo4j;
 
-import org.failearly.dataset.DataCleanup;
-import org.failearly.dataset.DataSet;
-import org.failearly.dataset.SuppressCleanup;
-import org.failearly.dataset.junit4.AbstractDataSetTest;
-import org.failearly.dataset.template.generator.ListGenerator;
-import org.failearly.dataset.template.generator.RandomRangeGenerator;
+import org.failearly.dataz.DataCleanup;
+import org.failearly.dataz.DataSet;
+import org.failearly.dataz.SuppressCleanup;
+import org.failearly.dataz.junit4.AbstractDataSetTest;
+import org.failearly.dataz.template.generator.ListGenerator;
+import org.failearly.dataz.template.generator.RandomRangeGenerator;
 import org.junit.Test;
 
 /**

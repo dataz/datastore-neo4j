@@ -17,26 +17,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.neo4j.internal;
+package org.failearly.dataz.datastore.neo4j.internal.json;
 
-import org.failearly.dataset.datastore.DataStoreException;
-import org.failearly.dataset.datastore.neo4j.internal.json.Neo4JError;
-
-import java.util.List;
+import java.util.Map;
 
 /**
- * Neo4JDataStoreException is responsible for ...
+ * Neo4JEntity is the base class for nodes and relations.
  */
-public class Neo4JDataStoreException extends DataStoreException {
-    public Neo4JDataStoreException(List<Neo4JError> errors) {
-        super("Neo4J Datastore complains about "+ errors.size() + " error(s):"+createErrorMessage(errors));
+@SuppressWarnings("unused")
+public abstract class Neo4JEntity {
+    private final String id;
+    private Map<String,?> properties;
+
+    protected Neo4JEntity(String id) {
+        this.id = id;
     }
 
-    private static String createErrorMessage(List<Neo4JError> errors) {
-        final StringBuilder builder=new StringBuilder();
-        for (Neo4JError error : errors) {
-            builder.append("\n\t").append(error).append("\n");
-        }
-        return builder.toString();
+    public final String getId() {
+        return id;
+    }
+
+    public final Map<String, ?> getProperties() {
+        return properties;
+    }
+
+    public final void setProperties(Map<String, ?> properties) {
+        this.properties = properties;
     }
 }

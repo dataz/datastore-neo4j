@@ -17,16 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.neo4j.internal;
+package org.failearly.dataz.datastore.neo4j.internal;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.failearly.common.message.Message;
 import org.failearly.common.test.ExtendedProperties;
-import org.failearly.dataset.datastore.neo4j.internal.json.Neo4JResponse;
-import org.failearly.dataset.datastore.neo4j.internal.json.Neo4JStatements;
-import org.failearly.dataset.datastore.support.SimpleFileTransactionalSupportDataStoreBase;
-import org.failearly.dataset.resource.DataResource;
-import org.failearly.dataset.simplefile.SimpleFileStatement;
+import org.failearly.dataz.datastore.neo4j.internal.json.Neo4JResponse;
+import org.failearly.dataz.datastore.neo4j.internal.json.Neo4JStatements;
+import org.failearly.dataz.datastore.support.SimpleFileTransactionalSupportDataStoreBase;
+import org.failearly.dataz.resource.DataResource;
+import org.failearly.dataz.simplefile.SimpleFileStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

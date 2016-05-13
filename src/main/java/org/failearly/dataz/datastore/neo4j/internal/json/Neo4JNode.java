@@ -17,18 +17,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.neo4j.internal;
+package org.failearly.dataz.datastore.neo4j.internal.json;
 
-import org.failearly.dataset.datastore.DataStore;
-import org.failearly.dataset.datastore.DataStoreFactory;
-import org.failearly.dataset.datastore.neo4j.Neo4jDataStore;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.List;
 
 /**
- * Neo4jDataStoreFactory is responsible for ...
+ * Neo4JNode is responsible for ...
  */
-public final class Neo4jDataStoreFactory implements DataStoreFactory<Neo4jDataStore> {
-    @Override
-    public DataStore createDataStore(Neo4jDataStore annotation, Object context) {
-        return Neo4JDataStores.createDataStore(annotation);
+@SuppressWarnings("unused")
+public final class Neo4JNode extends Neo4JEntity {
+    private List<String> labels;
+
+    @JsonCreator
+    public Neo4JNode(@JsonProperty("id")String id) {
+        super(id);
     }
+
+    public List<String> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(List<String> labels) {
+        this.labels = labels;
+    }
+
 }

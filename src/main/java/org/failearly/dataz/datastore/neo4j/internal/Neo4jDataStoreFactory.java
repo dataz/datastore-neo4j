@@ -17,31 +17,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.neo4j.internal.json;
+package org.failearly.dataz.datastore.neo4j.internal;
 
-import java.util.Map;
+import org.failearly.dataz.datastore.DataStore;
+import org.failearly.dataz.datastore.DataStoreFactory;
+import org.failearly.dataz.datastore.neo4j.Neo4jDataStore;
 
 /**
- * Neo4JEntity is the base class for nodes and relations.
+ * Neo4jDataStoreFactory is responsible for ...
  */
-@SuppressWarnings("unused")
-public abstract class Neo4JEntity {
-    private final String id;
-    private Map<String,?> properties;
-
-    protected Neo4JEntity(String id) {
-        this.id = id;
-    }
-
-    public final String getId() {
-        return id;
-    }
-
-    public final Map<String, ?> getProperties() {
-        return properties;
-    }
-
-    public final void setProperties(Map<String, ?> properties) {
-        this.properties = properties;
+public final class Neo4jDataStoreFactory implements DataStoreFactory<Neo4jDataStore> {
+    @Override
+    public DataStore createDataStore(Neo4jDataStore annotation, Object context) {
+        return Neo4JDataStores.createDataStore(annotation);
     }
 }

@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.neo4j.internal.json;
+package org.failearly.dataz.datastore.neo4j.internal.json;
 
 import java.util.List;
 

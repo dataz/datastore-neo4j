@@ -19,10 +19,10 @@
 
 
 dependencies {
-    compile project(':dataset')
+    compile project(':dataz-core')
     compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.18'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.5.3'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.5.3'
 
-    testCompile project(':dataset-common-test')
+    testCompile project(':dataz-common-test')
 }

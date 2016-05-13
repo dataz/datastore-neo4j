@@ -17,11 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.neo4j.internal;
+package org.failearly.dataz.datastore.neo4j.internal;
 
-import org.failearly.dataset.AdhocDataStore;
-import org.failearly.dataset.datastore.DataStore;
-import org.failearly.dataset.datastore.neo4j.Neo4jDataStore;
+import org.failearly.dataz.AdhocDataStore;
+import org.failearly.dataz.datastore.DataStore;
+import org.failearly.dataz.datastore.neo4j.Neo4jDataStore;
 
 /**
  * Neo4JDataStores is responsible for ...

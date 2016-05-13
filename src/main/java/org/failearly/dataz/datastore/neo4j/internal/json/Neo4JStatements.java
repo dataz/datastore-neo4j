@@ -17,11 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.neo4j.internal.json;
+package org.failearly.dataz.datastore.neo4j.internal.json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.failearly.dataset.simplefile.SimpleFileStatement;
+import org.failearly.dataz.simplefile.SimpleFileStatement;
 
 import java.util.LinkedList;
 import java.util.List;

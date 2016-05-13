@@ -17,9 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.neo4j.internal;
+package org.failearly.dataz.datastore.neo4j.internal;
 
-import org.failearly.dataset.datastore.DataStoreException;
+import org.failearly.dataz.datastore.DataStoreException;
 
 import javax.ws.rs.core.Response;
 

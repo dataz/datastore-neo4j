@@ -17,12 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.neo4j;
+package org.failearly.dataz.datastore.neo4j;
 
-import org.failearly.dataset.AdhocDataStore;
-import org.failearly.dataset.config.Constants;
-import org.failearly.dataset.datastore.DataStoreFactory;
-import org.failearly.dataset.datastore.neo4j.internal.Neo4jDataStoreFactory;
+import org.failearly.dataz.AdhocDataStore;
+import org.failearly.dataz.config.Constants;
+import org.failearly.dataz.datastore.DataStoreFactory;
+import org.failearly.dataz.datastore.neo4j.internal.Neo4jDataStoreFactory;
 
 import java.lang.annotation.*;
 
@@ -40,7 +40,7 @@ public @interface Neo4jDataStore {
      *
      * @return the (unique) data store id.
      */
-    String id() default Constants.DATASET_DEFAULT_DATASTORE_ID;
+    String id() default Constants.DATAZ_DEFAULT_DATASTORE_ID;
 
     /**
      * The datastore configuration file will be used by the actually DataStore Implementation. So what's inside these configuration property file depends
@@ -53,7 +53,7 @@ public @interface Neo4jDataStore {
     /**
      * Default suffix for setup resource files.
      *
-     * @return suffix to be used for {@link org.failearly.dataset.DataSet#setup()} (if no setup resource is specified).
+     * @return suffix to be used for {@link org.failearly.dataz.DataSet#setup()} (if no setup resource is specified).
      *
      * @see AdhocDataStore#setupSuffix()
      */
@@ -62,7 +62,7 @@ public @interface Neo4jDataStore {
     /**
      * Default suffix for cleanup resource files.
      *
-     * @return suffix to be used for {@link org.failearly.dataset.DataSet#cleanup()} (if no cleanup resource is specified).
+     * @return suffix to be used for {@link org.failearly.dataz.DataSet#cleanup()} (if no cleanup resource is specified).
      *
      * @see AdhocDataStore#cleanupSuffix()
      */

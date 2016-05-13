@@ -17,31 +17,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.neo4j.internal.json;
-
-import java.util.List;
+package org.failearly.dataz.datastore.neo4j.internal.json;
 
 /**
- * Neo4JData collects the row and graph property.
+ * Neo4JError is responsible for ...
  */
 @SuppressWarnings("unused")
-public final class Neo4JData {
-    private List<?> row;
+public final class Neo4JError {
+    private String code;
+    private String message;
 
-    private Neo4JGraph graph;
-
-    public List<?> getRow() {
-        return row;
-    }
-    public void setRow(List<?> row) {
-        this.row = row;
+    public String getCode() {
+        return code;
     }
 
-    public Neo4JGraph getGraph() {
-        return graph;
+    public String getMessage() {
+        return message;
     }
 
-    public void setGraph(Neo4JGraph graph) {
-        this.graph = graph;
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return "Neo4JError{" +
+                "code='" + code + '\'' +
+                ", message='" + message + '\'' +
+                '}';
     }
 }

@@ -17,31 +17,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.neo4j.internal.json;
+package org.failearly.dataz.datastore.neo4j.internal.json;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+import java.util.Collections;
 import java.util.List;
 
 /**
- * Neo4JNode is responsible for ...
+ * Neo4JResult represents a single result entry of Neo4J JSON response.
  */
 @SuppressWarnings("unused")
-public final class Neo4JNode extends Neo4JEntity {
-    private List<String> labels;
+public final class Neo4JResult {
+    private List<String> columns = Collections.emptyList();
+    private List<Neo4JData> dataList = Collections.emptyList();
 
-    @JsonCreator
-    public Neo4JNode(@JsonProperty("id")String id) {
-        super(id);
+    public List<?> getData() {
+        return dataList;
     }
 
-    public List<String> getLabels() {
-        return labels;
+    public void setData(List<Neo4JData> data) {
+        this.dataList = data;
     }
 
-    public void setLabels(List<String> labels) {
-        this.labels = labels;
+    public List<String> getColumns() {
+        return columns;
+    }
+
+    public void setColumns(List<String> columns) {
+        this.columns = columns;
     }
 
 }

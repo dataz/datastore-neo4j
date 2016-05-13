@@ -17,33 +17,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package org.failearly.dataset.datastore.neo4j.internal.json;
+package org.failearly.dataz.datastore.neo4j.internal;
 
-import java.util.Collections;
+import org.failearly.dataz.datastore.DataStoreException;
+import org.failearly.dataz.datastore.neo4j.internal.json.Neo4JError;
+
 import java.util.List;
 
 /**
- * Neo4JResult represents a single result entry of Neo4J JSON response.
+ * Neo4JDataStoreException is responsible for ...
  */
-@SuppressWarnings("unused")
-public final class Neo4JResult {
-    private List<String> columns = Collections.emptyList();
-    private List<Neo4JData> dataList = Collections.emptyList();
-
-    public List<?> getData() {
-        return dataList;
+public class Neo4JDataStoreException extends DataStoreException {
+    public Neo4JDataStoreException(List<Neo4JError> errors) {
+        super("Neo4J Datastore complains about "+ errors.size() + " error(s):"+createErrorMessage(errors));
     }
 
-    public void setData(List<Neo4JData> data) {
-        this.dataList = data;
+    private static String createErrorMessage(List<Neo4JError> errors) {
+        final StringBuilder builder=new StringBuilder();
+        for (Neo4JError error : errors) {
+            builder.append("\n\t").append(error).append("\n");
+        }
+        return builder.toString();
     }
-
-    public List<String> getColumns() {
-        return columns;
-    }
-
-    public void setColumns(List<String> columns) {
-        this.columns = columns;
-    }
-
 }
