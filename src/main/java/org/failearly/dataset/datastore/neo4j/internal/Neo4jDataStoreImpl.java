@@ -20,13 +20,13 @@
 package org.failearly.dataset.datastore.neo4j.internal;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.failearly.common.message.Message;
+import org.failearly.common.test.ExtendedProperties;
 import org.failearly.dataset.datastore.neo4j.internal.json.Neo4JResponse;
 import org.failearly.dataset.datastore.neo4j.internal.json.Neo4JStatements;
 import org.failearly.dataset.datastore.support.SimpleFileTransactionalSupportDataStoreBase;
 import org.failearly.dataset.resource.DataResource;
 import org.failearly.dataset.simplefile.SimpleFileStatement;
-import org.failearly.common.test.ExtendedProperties;
-import org.failearly.common.test.mb.MessageBuilders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +40,7 @@ import java.io.IOException;
 /**
  * Neo4jDataStoreImpl is responsible for ...
  */
+@SuppressWarnings("WeakerAccess")
 public final class Neo4jDataStoreImpl extends SimpleFileTransactionalSupportDataStoreBase<Neo4JStatements> {
     private static final Logger LOGGER=LoggerFactory.getLogger(Neo4jDataStoreImpl.class);
 
@@ -63,50 +64,14 @@ public final class Neo4jDataStoreImpl extends SimpleFileTransactionalSupportData
         checkHttpStatus(response);
     }
 
-    // @formatter:off
     @Override
-    protected MessageBuilders.LazyMessage establishingConnectionFailedMessage() {
-        return MessageBuilders.createLazyMessage(mb->{
-                return mb
-                        .argument("url", this.url)
-                        .argument("urlconfig", DATASTORE_NEO4J_URL)
-                        .argument("config", getConfigFile())
-                        .argument("validurl", "http://<host>:<port>/db/data/transaction/commit")
-                        .argument("exampleurl", "http://localhost:7474/db/data/transaction/commit")
-                        .firstLine("Can't connect to Neo4J server on '__url__'")
-                        .newline()
-                        .lines(
-                            "DataSet is not able to connect to your Neo4J server.",
-                            "",
-                            "Possible fixes:"
-                        )
-                        .newline()
-                        .sub()
-                            .lines(
-                                "- Download and install Neo4J.",
-                                "  1. Download Neo4j from http://neo4j.com/download and ...",
-                                "  2. install it. Description could be found here http://neo4j.com/docs/stable/server-installation.html"
-                            )
-                            .line("- Start Neo4J server by using 'neo4j start'.")
-                            .lines("- Your server does not listen to expected port (default is 7474).",
-                                   "  Set the '__urlconfig__' in your __config__.")
-                            .lines(
-                                    "- Your url is not correct. A valid Neo4J url has the format '__validurl__'.",
-                                    "  Example URL: __exampleurl__"
-                            )
-                        .end()
-                        .newline()
-                        .lines(
-                            "Caution: Do not share your instance of Neo4J server. Your tests should use their own instance.",
-                            "  If you need an instance for manual tests, make a second installation ",
-                            "  (by copying your installation) and change the port.",
-                            "  More about configuration could be found here: http://neo4j.com/docs/stable/server-configuration.html"
-                        )
-                    .newlines(3);
-            }
+    protected Message establishingConnectionFailedMessage() {
+        return Neo4JEstablishingConnectionFailedMessage.create(mb->
+                mb.withDataStore(this)
+                  .withUrl(this.url)
+                  .withUrlProperty(DATASTORE_NEO4J_URL)
         );
     }
-    // @formatter:on
 
     @Override
     protected Neo4JStatements startTransaction(DataResource dataResource, boolean useTransaction) throws Exception {

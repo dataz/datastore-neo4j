@@ -1,0 +1,28 @@
+#* @vtlvariable name="url" type="java.lang.String" *#
+#* @vtlvariable name="dsid" type="java.lang.String" *#
+#* @vtlvariable name="urlproperty" type="java.lang.String" *#
+#* @vtlvariable name="configfile" type="java.lang.String" *#
+Can't connect to Neo4J server on '${url}' (datastore id=${dsid})
+
+DataSet is not able to connect to your Neo4J server.
+
+Possible issues and fixes:
+
+- Download and install Neo4J.
+     1. Download Neo4j from http://neo4j.com/download and ...
+     2. install it. Description could be found here http://neo4j.com/docs/stable/server-installation.html
+
+- Start Neo4J server by using 'neo4j start'.
+
+- Your server does not listen to expected port (default is 7474).
+        Set the '${urlproperty}' in your ${configfile}.
+        
+- Your url is not correct. A valid Neo4J url has the format 'http://<host>:<port>/db/data/transaction/commit'.
+         Example URL: http://localhost:7474/db/data/transaction/commit
+
+Caution: Do not share your instance of Neo4J server. Your tests should use their own instance.
+  If you need an instance for manual tests, make a second installation 
+  (by copying your installation) and change the port (for example 7473).
+  
+More about configuration could be found here: http://neo4j.com/docs/stable/server-configuration.html
+
