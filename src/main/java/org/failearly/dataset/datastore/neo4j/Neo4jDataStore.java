@@ -21,7 +21,7 @@ package org.failearly.dataset.datastore.neo4j;
 
 import org.failearly.dataset.AdhocDataStore;
 import org.failearly.dataset.config.Constants;
-import org.failearly.dataset.datastore.DataStoreFactoryDefinition;
+import org.failearly.dataset.datastore.DataStoreFactory;
 import org.failearly.dataset.datastore.neo4j.internal.Neo4jDataStoreFactory;
 
 import java.lang.annotation.*;
@@ -33,7 +33,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Repeatable(Neo4jDataStore.Neo4jDataStores.class)
-@DataStoreFactoryDefinition(factory = Neo4jDataStoreFactory.class)
+@DataStoreFactory.Definition(Neo4jDataStoreFactory.class)
 public @interface Neo4jDataStore {
     /**
      * If your tests uses multiple data stores, you must identify each data store.
