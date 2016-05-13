@@ -1,0 +1,5 @@
+#* @implicitly included *#
+#* @vtlvariable name="url" type="java.lang.String" *#
+#* @vtlvariable name="dsid" type="java.lang.String" *#
+#* @vtlvariable name="urlproperty" type="java.lang.String" *#
+#* @vtlvariable name="configfile" type="java.lang.String" *#
