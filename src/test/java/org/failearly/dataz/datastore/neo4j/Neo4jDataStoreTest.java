@@ -21,7 +21,6 @@ package org.failearly.dataz.datastore.neo4j;
 
 import org.failearly.dataz.DataCleanup;
 import org.failearly.dataz.DataSet;
-import org.failearly.dataz.SuppressCleanup;
 import org.failearly.dataz.junit4.AbstractDataSetTest;
 import org.failearly.dataz.template.generator.ListGenerator;
 import org.failearly.dataz.template.generator.RandomRangeGenerator;
@@ -30,17 +29,16 @@ import org.junit.Test;
 /**
  * Neo4jDataStoreTest contains tests for ... .
  */
-@Neo4jDataStore(setupSuffix = "setup.neo4j.vm", cleanupSuffix = "cleanup.neo4j")
 @DataCleanup
 public class Neo4jDataStoreTest extends AbstractDataSetTest {
 
     @Test
-    @DataSet(setup = "Neo4jDataStoreTest-use_template.setup.neo4j.vm")
+    @DataSet(datastores = Neo4JDefaultDataStore.class, setup = "Neo4jDataStoreTest-use_template.setup.neo4j.vm")
     @ListGenerator(name = "datastores", values={"Oracle","H2","Neo4J","MongoDB"})
     @RandomRangeGenerator(name = "datastoreIds", seed=1)
     @RandomRangeGenerator(name = "datasetIds", seed=2)
     @ListGenerator(name = "datasets", values={"ds1","ds2","ds3"})
-    @SuppressCleanup
+    // @SuppressCleanup
     public void use_template() throws Exception {
     }
 }

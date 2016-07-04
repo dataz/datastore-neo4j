@@ -19,54 +19,56 @@
 
 package org.failearly.dataz.datastore.neo4j;
 
-import org.failearly.dataz.AdhocDataStore;
+import org.failearly.dataz.common.Property;
 import org.failearly.dataz.config.Constants;
+import org.failearly.dataz.datastore.DataStore;
 import org.failearly.dataz.datastore.DataStoreFactory;
 import org.failearly.dataz.datastore.neo4j.internal.Neo4jDataStoreFactory;
+import org.failearly.dataz.NamedDataStore;
 
 import java.lang.annotation.*;
 
 /**
- * Neo4jDataStore is responsible for ...
+ * Neo4jDataStore is a datastore annotation for Neo4J.
  */
+@SuppressWarnings("unused")
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Repeatable(Neo4jDataStore.Neo4jDataStores.class)
-@DataStoreFactory.Definition(Neo4jDataStoreFactory.class)
+@DataStoreFactory.Definition(factory = Neo4jDataStoreFactory.class)
 public @interface Neo4jDataStore {
     /**
-     * If your tests uses multiple data stores, you must identify each data store.
+     * If your tests uses multiple datastores per {@link NamedDataStore}, you must identify each data store annotation.
+     * <br><br>
+     * Remark: {@link DataStore#getId()} uses usually {@code name},
+     * the {@link NamedDataStore} and the actually {@link DataStore} implementation.
      *
-     * @return the (unique) data store id.
+     * @return the (unique) data store name.
+     *
+     * @see DataStore#getId()
      */
-    String id() default Constants.DATAZ_DEFAULT_DATASTORE_ID;
+    String name() default Constants.DATAZ_DEFAULT_DATASTORE_NAME;
 
     /**
-     * The datastore configuration file will be used by the actually DataStore Implementation. So what's inside these configuration property file depends
-     * on the DataStore type.
+     * The datastore (optional) configuration file will be used by the actually DataStore Implementation. So what's inside these configuration property file depends
+     * on the DataStore type. Could be overwritten by {@link #properties()}.
      *
      * @return the datastore configuration file(name).
+     *
+     * @see #properties()
      */
-    String config() default "/neo4j-datastore.properties";
+    String config() default Constants.DATAZ_NO_CONFIG_FILE;
 
     /**
-     * Default suffix for setup resource files.
+     * Optional properties or named arguments (key value pairs). Overwrites the {@link #config()}.
      *
-     * @return suffix to be used for {@link org.failearly.dataz.DataSet#setup()} (if no setup resource is specified).
+     * @return an array of {@link Property}.
      *
-     * @see AdhocDataStore#setupSuffix()
+     * @see #config()
      */
-    String setupSuffix() default "setup.neo4j";
+    Property[] properties() default {};
 
-    /**
-     * Default suffix for cleanup resource files.
-     *
-     * @return suffix to be used for {@link org.failearly.dataz.DataSet#cleanup()} (if no cleanup resource is specified).
-     *
-     * @see AdhocDataStore#cleanupSuffix()
-     */
-    String cleanupSuffix() default "cleanup.neo4j";
 
     /**
      * Containing Annotation Type.

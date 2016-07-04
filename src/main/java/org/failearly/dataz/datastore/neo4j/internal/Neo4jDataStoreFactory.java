@@ -22,13 +22,14 @@ package org.failearly.dataz.datastore.neo4j.internal;
 import org.failearly.dataz.datastore.DataStore;
 import org.failearly.dataz.datastore.DataStoreFactory;
 import org.failearly.dataz.datastore.neo4j.Neo4jDataStore;
+import org.failearly.dataz.NamedDataStore;
 
 /**
  * Neo4jDataStoreFactory is responsible for ...
  */
 public final class Neo4jDataStoreFactory implements DataStoreFactory<Neo4jDataStore> {
     @Override
-    public DataStore createDataStore(Neo4jDataStore annotation, Object context) {
-        return Neo4JDataStores.createDataStore(annotation);
+    public DataStore createDataStore(Class<? extends NamedDataStore> namedDataStore, Neo4jDataStore dataStoreAnnotation) {
+        return new Neo4jDataStoreImpl(namedDataStore, dataStoreAnnotation);
     }
 }

@@ -1,4 +1,7 @@
 #* @implicitly included *#
+#* @vtlvariable name="commit" type="java.lang.String" *#
+#* @vtlvariable name="defaultcommit" type="java.lang.String" *#
+#* @vtlvariable name="commitproperty" type="java.lang.String" *#
 #* @vtlvariable name="url" type="java.lang.String" *#
 #* @vtlvariable name="dsid" type="java.lang.String" *#
 #* @vtlvariable name="urlproperty" type="java.lang.String" *#

@@ -21,9 +21,12 @@ package org.failearly.dataz.datastore.neo4j.internal;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.failearly.common.message.Message;
-import org.failearly.common.test.ExtendedProperties;
+import org.failearly.common.proputils.PropertiesAccessor;
+import org.failearly.dataz.datastore.neo4j.Neo4JConfigProperties;
+import org.failearly.dataz.datastore.neo4j.Neo4jDataStore;
 import org.failearly.dataz.datastore.neo4j.internal.json.Neo4JResponse;
 import org.failearly.dataz.datastore.neo4j.internal.json.Neo4JStatements;
+import org.failearly.dataz.NamedDataStore;
 import org.failearly.dataz.datastore.support.SimpleFileTransactionalSupportDataStoreBase;
 import org.failearly.dataz.resource.DataResource;
 import org.failearly.dataz.simplefile.SimpleFileStatement;
@@ -38,38 +41,41 @@ import javax.ws.rs.core.Response;
 import java.io.IOException;
 
 /**
- * Neo4jDataStoreImpl is responsible for ...
+ * Neo4jDataStoreImpl is the implementation for {@link Neo4jDataStore}.
  */
 @SuppressWarnings("WeakerAccess")
-public final class Neo4jDataStoreImpl extends SimpleFileTransactionalSupportDataStoreBase<Neo4JStatements> {
-    private static final Logger LOGGER=LoggerFactory.getLogger(Neo4jDataStoreImpl.class);
-
-    public static final String DATASTORE_NEO4J_URL="neo4j.url";
-    public static final String DATASTORE_NEO4J_USER="neo4j.user";
-    public static final String DATASTORE_NEO4J_PASSWORD="neo4j.password";
+public final class Neo4jDataStoreImpl extends SimpleFileTransactionalSupportDataStoreBase<Neo4JStatements> implements Neo4JConfigProperties {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Neo4jDataStoreImpl.class);
 
     private String url;
     private WebTarget webTarget;
+    private String commitPath;
 
-    public Neo4jDataStoreImpl(String dataStoreId, String dataStoreConfigFile) {
-        super(dataStoreId, dataStoreConfigFile);
+    public Neo4jDataStoreImpl(Class<? extends NamedDataStore> namedDataStore, Neo4jDataStore annotation) {
+        super(namedDataStore, annotation);
     }
 
     @Override
-    protected void doEstablishConnection(ExtendedProperties properties) throws Exception {
-        this.url=properties.getMandatoryProperty(DATASTORE_NEO4J_URL);
-        LOGGER.info("Connect to Neo4J server using URL '{}'!", this.url);
-        this.webTarget=ClientBuilder.newClient().target(this.url);
-        final Response response=executePostRequest(Neo4JStatements.NO_STATEMENTS);
+    protected void doEstablishConnection(PropertiesAccessor properties) throws Exception {
+        this.url = properties.getStringValue(NEO4J_URL);
+        this.commitPath = properties.getStringValue(NEO4J_COMMIT_PATH, NEO4J_DEFAULT_COMMIT_PATH);
+
+        LOGGER.info("Connect to Neo4J server using URI '{}'!", neo4jCommitUri());
+        this.webTarget = ClientBuilder.newClient().target(neo4jCommitUri());
+        final Response response = executePostRequest(Neo4JStatements.NO_STATEMENTS);
         checkHttpStatus(response);
+    }
+
+    private String neo4jCommitUri() {
+        return this.url + this.commitPath;
     }
 
     @Override
     protected Message establishingConnectionFailedMessage() {
-        return Neo4JEstablishingConnectionFailedMessage.create(mb->
+        return Neo4JEstablishingConnectionFailedMessage.create(mb ->
                 mb.withDataStore(this)
-                  .withUrl(this.url)
-                  .withUrlProperty(DATASTORE_NEO4J_URL)
+                        .withUrl(this.url)
+                        .withCommitPath(this.commitPath)
         );
     }
 
@@ -85,19 +91,19 @@ public final class Neo4jDataStoreImpl extends SimpleFileTransactionalSupportData
 
     @Override
     protected void commitTransaction(Neo4JStatements statements) throws Exception {
-        final Response response=executePostRequest(statements);
+        final Response response = executePostRequest(statements);
         checkHttpStatus(response);
         checkNeo4jErrors(response);
     }
 
     private Response executePostRequest(Neo4JStatements statements) throws JsonProcessingException {
         return webTarget.request(MediaType.APPLICATION_JSON_TYPE)
-            .accept(MediaType.APPLICATION_JSON)
-            .post(Entity.entity(statements.toJson(), MediaType.APPLICATION_JSON));
+                .accept(MediaType.APPLICATION_JSON)
+                .post(Entity.entity(statements.toJson(), MediaType.APPLICATION_JSON));
     }
 
     private void checkHttpStatus(Response response) {
-        final Response.StatusType statusInfo=response.getStatusInfo();
+        final Response.StatusType statusInfo = response.getStatusInfo();
         LOGGER.debug("Neo4J HTTP Status: {}", statusInfo);
         if (statusInfo.getFamily() != Response.Status.Family.SUCCESSFUL) {
             throw new Neo4JHTTPErrorException(response);
@@ -105,9 +111,9 @@ public final class Neo4jDataStoreImpl extends SimpleFileTransactionalSupportData
     }
 
     private void checkNeo4jErrors(Response response) throws IOException {
-        final String resultsString=response.readEntity(String.class);
+        final String resultsString = response.readEntity(String.class);
         LOGGER.debug("Neo4J Results:\n{}", resultsString);
-        final Neo4JResponse results=Neo4JResponse.fromJson(resultsString);
+        final Neo4JResponse results = Neo4JResponse.fromJson(resultsString);
         results.throwOnErrors();
     }
 }

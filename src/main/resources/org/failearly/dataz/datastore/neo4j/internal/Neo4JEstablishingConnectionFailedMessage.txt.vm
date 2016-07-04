@@ -1,4 +1,4 @@
-Can't connect to Neo4J server on '${url}' (datastore id=${dsid})
+Can't connect to Neo4J server on '${url}' with commit path '${commit}'(datastore id=${dsid}).
 
 DataSet is not able to connect to your Neo4J server.
 
@@ -13,8 +13,13 @@ Possible issues and fixes:
 - Your server does not listen to expected port (default is 7474).
         Set the '${urlproperty}' in your ${configfile}.
         
-- Your url is not correct. A valid Neo4J url has the format 'http://<host>:<port>/db/data/transaction/commit'.
-         Example URL: http://localhost:7474/db/data/transaction/commit
+- The commit path to ${url} is not correct. The default is ${defaultcommit}.
+        Set the '${commitproperty}' in your ${configfile}.
+
+- Your url is not correct. A valid Neo4J url has the format 'http://<host>:<port>'.
+         Example URL: http://localhost:7474
+
+Remark: It's also possible instead of applying
 
 Caution: Do not share your instance of Neo4J server. Your tests should use their own instance.
   If you need an instance for manual tests, make a second installation 
