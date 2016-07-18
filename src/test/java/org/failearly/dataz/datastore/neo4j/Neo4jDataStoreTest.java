@@ -21,7 +21,6 @@ package org.failearly.dataz.datastore.neo4j;
 
 import org.failearly.dataz.DataCleanup;
 import org.failearly.dataz.DataSet;
-import org.failearly.dataz.junit4.AbstractDataSetTest;
 import org.failearly.dataz.template.generator.ListGenerator;
 import org.failearly.dataz.template.generator.RandomRangeGenerator;
 import org.junit.Test;
@@ -30,7 +29,7 @@ import org.junit.Test;
  * Neo4jDataStoreTest contains tests for ... .
  */
 @DataCleanup
-public class Neo4jDataStoreTest extends AbstractDataSetTest {
+public class Neo4jDataStoreTest {
 
     @Test
     @DataSet(datastores = Neo4JDefaultDataStore.class, setup = "Neo4jDataStoreTest-use_template.setup.neo4j.vm")
