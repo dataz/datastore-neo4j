@@ -21,7 +21,7 @@ package org.failearly.dataz.datastore.neo4j.internal.json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.failearly.dataz.simplefile.SimpleFileStatement;
+import org.failearly.dataz.datastore.support.simplefile.SimpleFileStatement;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -57,6 +57,10 @@ public final class Neo4JStatements {
 
     public String toJson() throws JsonProcessingException {
         return objectMapper.writeValueAsString(this);
+    }
+
+    public void reset() {
+        statements.clear();
     }
 
     public static final class Statement {

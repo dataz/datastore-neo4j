@@ -18,8 +18,10 @@
  */
 package org.failearly.dataz.datastore.neo4j;
 
+import org.failearly.dataz.datastore.neo4j.internal.Neo4jDataStoreImplementation;
+
 /**
- * Neo4JConfigProperties holds the properties used by {@link org.failearly.dataz.datastore.neo4j.internal.Neo4jDataStoreImpl}.
+ * Neo4JConfigProperties holds the properties used by {@link Neo4jDataStoreImplementation}.
  */
 public interface Neo4JConfigProperties {
     String NEO4J_URL = "neo4j.url";

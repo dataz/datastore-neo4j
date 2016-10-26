@@ -30,6 +30,6 @@ import org.failearly.dataz.NamedDataStore;
 public final class Neo4jDataStoreFactory implements DataStoreFactory<Neo4jDataStore> {
     @Override
     public DataStore createDataStore(Class<? extends NamedDataStore> namedDataStore, Neo4jDataStore dataStoreAnnotation) {
-        return new Neo4jDataStoreImpl(namedDataStore, dataStoreAnnotation);
+        return new Neo4jDataStoreImplementation(namedDataStore, dataStoreAnnotation);
     }
 }
