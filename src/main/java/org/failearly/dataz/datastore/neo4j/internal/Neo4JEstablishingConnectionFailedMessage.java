@@ -12,7 +12,7 @@
 
 package org.failearly.dataz.datastore.neo4j.internal;
 
-import org.failearly.common.message.*;
+import org.failearly.dataz.internal.common.message.*;
 import org.failearly.dataz.datastore.DataStoreBase;
 import org.failearly.dataz.datastore.neo4j.Neo4JConfigProperties;
 

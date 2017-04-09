@@ -22,7 +22,7 @@ import org.failearly.dataz.NamedDataStore;
 import java.lang.annotation.*;
 
 /**
- * Neo4jDataStore is a datastore annotation for Neo4J.
+ * Neo4jDataStore is a datastore impl for Neo4J.
  */
 @SuppressWarnings("unused")
 @Target({ElementType.TYPE})
@@ -32,7 +32,7 @@ import java.lang.annotation.*;
 @DataStoreFactory.Definition(factory = Neo4jDataStoreFactory.class)
 public @interface Neo4jDataStore {
     /**
-     * If your tests uses multiple datastores per {@link NamedDataStore}, you must identify each data store annotation.
+     * If your tests uses multiple datastores per {@link NamedDataStore}, you must identify each data store impl.
      * <br><br>
      * Remark: {@link DataStore#getId()} uses usually {@code name},
      * the {@link NamedDataStore} and the actually {@link DataStore} implementation.

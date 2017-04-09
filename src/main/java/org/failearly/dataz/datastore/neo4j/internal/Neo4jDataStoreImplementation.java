@@ -13,8 +13,8 @@
 package org.failearly.dataz.datastore.neo4j.internal;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.failearly.common.message.Message;
-import org.failearly.common.proputils.PropertiesAccessor;
+import org.failearly.dataz.internal.common.message.Message;
+import org.failearly.dataz.internal.common.proputils.PropertiesAccessor;
 import org.failearly.dataz.NamedDataStore;
 import org.failearly.dataz.datastore.DataStoreBase;
 import org.failearly.dataz.datastore.DataStoreException;
