@@ -1,0 +1,3 @@
+match (t:Datastore)-[r]-() delete r,t;
+match (t:Datastore) delete t;
+match (t:Dataset) delete t;
