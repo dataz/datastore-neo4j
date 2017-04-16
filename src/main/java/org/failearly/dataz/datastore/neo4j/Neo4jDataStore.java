@@ -22,7 +22,11 @@ import org.failearly.dataz.NamedDataStore;
 import java.lang.annotation.*;
 
 /**
- * Neo4jDataStore is a datastore impl for Neo4J.
+ * The Datastore annotation for NEO4J based datastores.
+ *
+ * Assign in to your {@link NamedDataStore} class. A sample usage could be seen at {@link Neo4JDefaultDataStore}.
+ *
+ * @see Neo4JDefaultDataStore
  */
 @SuppressWarnings("unused")
 @Target({ElementType.TYPE})

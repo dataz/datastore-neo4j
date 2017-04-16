@@ -26,6 +26,17 @@ import org.failearly.dataz.NamedDataStore;
  *
  * @see Neo4JConfigProperties
  */
-@Neo4jDataStore(config = "/neo4j-datastore.properties")
+@SuppressWarnings("WeakerAccess")
+@Neo4jDataStore(config = Neo4JDefaultDataStore.CONFIG_FILE)
 public final class Neo4JDefaultDataStore extends NamedDataStore {
+    /**
+     * Contains the configuration for your default Neo4J datastore.
+     *
+     * The expected properties could be found in {@link Neo4JConfigProperties}.
+     *
+     * @see Neo4JConfigProperties
+     * @see Neo4jDataStore#config()
+     */
+    public static final String CONFIG_FILE="/sql-datastore.properties";
+
 }
