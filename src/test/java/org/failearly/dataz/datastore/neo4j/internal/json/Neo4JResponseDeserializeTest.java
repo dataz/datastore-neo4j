@@ -13,7 +13,7 @@
 package org.failearly.dataz.datastore.neo4j.internal.json;
 
 import org.failearly.dataz.datastore.neo4j.internal.Neo4JDataStoreException;
-import org.failearly.dataz.internal.common.test.ExceptionVerifier;
+import org.failearly.dataz.common.test.ExceptionVerifier;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
